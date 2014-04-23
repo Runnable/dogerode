@@ -1,0 +1,32 @@
+{
+  "name": "dogerode",
+  "version": "0.0.0",
+  "description": "DogStatsD shim for dockerode",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=testing mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Runnable/dogerode.git"
+  },
+  "keywords": [
+    "docker",
+    "Datadog",
+    "DogStatsd"
+  ],
+  "author": "Runnable",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Runnable/dogerode/issues"
+  },
+  "homepage": "https://github.com/Runnable/dogerode",
+  "dependencies": {
+    "dogstatsy": "0.0.1"
+  },
+  "devDependencies": {
+    "docker-mock": "0.0.4",
+    "dockerode": "^1.2.10",
+    "mocha": "^1.18.2"
+  }
+}
