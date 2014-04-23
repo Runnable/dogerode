@@ -15,7 +15,7 @@ function shim (dockerode, opts) {
 
     function done (err, payload) {
       reportTiming({
-        path: options.path,
+        path: filterPath(options.path),
         method: options.method,
         socketPath: modem.socketPath,
         host: modem.host,
@@ -27,4 +27,43 @@ function shim (dockerode, opts) {
       callback(err, payload);
     }
   }
+}
+
+var dockerNouns = [
+  'images',
+  'insert',
+  'json',
+  'history',
+  'push',
+  'tag',
+  'containers',
+  'top',
+  'changes',
+  'export',
+  'start',
+  'commit',
+  'stop',
+  'restart',
+  'kill',
+  'resize',
+  'attach',
+  'copy',
+  'create',
+  'auth',
+  'build',
+  'search',
+  'info',
+  'events',
+];
+
+var isDockerNoun = new RegExp(dockerNouns.join('|'));
+
+function filterPath (path) {
+  return '/' + path
+    .split('?')[0] //ignore query string
+    .split('/')
+    .filter(function (fragment) {
+      return isDockerNoun.test(fragment);
+    })
+    .join('/');
 }
