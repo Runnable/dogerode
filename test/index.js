@@ -19,7 +19,7 @@ describe('dogerode', function () {
   it('should histogram', function (done) {
     var stat = 'node.dockerode.dial';
     setCallback(stat, '|h', function (err, stat, val, tags) {
-      if (stat !== stat || tags.path !== '/containers/json?') {
+      if (stat !== stat || tags.path !== '/containers/json') {
         done(new Error('mismatch'));
       } else {
         done();
