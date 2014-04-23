@@ -18,9 +18,9 @@ function shim (dockerode, opts) {
         path: filterPath(options.path),
         method: options.method,
         socketPath: modem.socketPath,
-        host: modem.host,
+        dockerHost: modem.host,
         port: modem.post,
-        version: modem.version,
+        dockerVersion: modem.version,
         success: err == null,
         statusCode: err && err.statusCode
       });
