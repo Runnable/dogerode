@@ -22,7 +22,8 @@ function shim (dockerode, opts) {
         port: modem.post,
         dockerVersion: modem.version,
         success: err == null,
-        statusCode: err && err.statusCode
+        statusCode: err && err.statusCode,
+        errorCode: err && err.code
       });
       callback(err, payload);
     }
@@ -39,6 +40,7 @@ var dockerNouns = [
   'copy',
   'create',
   'events',
+  'exec',
   'export',
   'history',
   'images',
