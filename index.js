@@ -16,6 +16,7 @@ function shim (dockerode, opts) {
     function done (err, payload) {
       reportTiming({
         path: filterPath(options.path),
+        targetType: options.targetType || 'unknown',
         method: options.method,
         socketPath: modem.socketPath,
         dockerHost: modem.host,
