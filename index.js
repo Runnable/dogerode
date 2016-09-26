@@ -1,17 +1,19 @@
-var Dogstatsy = require('dogstatsy');
+'use strict'
 
-module.exports = shim;
+const Dogstatsy = require('dogstatsy')
+
+module.exports = shim
 
 function shim (dockerode, opts) {
-  var stats = new Dogstatsy(opts);
-  var modem = dockerode.modem;
-  modem._dial = modem.dial;
-  modem.dial = dial;
-  return dockerode;
+  const stats = new Dogstatsy(opts)
+  const modem = dockerode.modem
+  modem._dial = modem.dial
+  modem.dial = dial
+  return dockerode
 
   function dial (options, callback) {
-    var reportTiming = stats.histogram('node.dockerode.dial');
-    modem._dial(options, done);
+    const reportTiming = stats.histogram('node.dockerode.dial')
+    modem._dial(options, done)
 
     function done (err, payload) {
       reportTiming({
@@ -25,13 +27,13 @@ function shim (dockerode, opts) {
         success: err == null,
         statusCode: err && err.statusCode,
         errorCode: err && err.code
-      });
-      callback(err, payload);
+      })
+      callback(err, payload)
     }
   }
 }
 
-var dockerNouns = [
+const dockerNouns = [
   'attach',
   'auth',
   'build',
@@ -63,17 +65,17 @@ var dockerNouns = [
   'unpause',
   'version',
   'wait',
-  '_ping',
-];
+  '_ping'
+]
 
-var isDockerNoun = new RegExp(dockerNouns.join('|'));
+const isDockerNoun = new RegExp(dockerNouns.join('|'))
 
 function filterPath (path) {
   return '/' + path
-    .split('?')[0] //ignore query string
+    .split('?')[0] // ignore query string
     .split('/')
     .filter(function (fragment) {
-      return isDockerNoun.test(fragment);
+      return isDockerNoun.test(fragment)
     })
-    .join('/');
+    .join('/')
 }
