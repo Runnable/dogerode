@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "docker-mock": "0.0.4",
-    "dockerode": "^1.2.10",
+    "dockerode": "2.3.1",
     "mocha": "^1.18.2",
     "standard": "8.1.0"
   }
