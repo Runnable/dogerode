@@ -1,3 +1,5 @@
+'use strict'
+
 const setCallback = require('dogstatsy/test/fixtures/DogStatsD')
 const Docker = require('dockerode')
 let docker = new Docker({
@@ -18,6 +20,9 @@ describe('dogerode', function () {
   it('should histogram', function (done) {
     const stat = 'node.dockerode.dial'
     setCallback(stat, '|h', function (err, stat, val, tags) {
+      if (err) {
+        return done(err)
+      }
       if (stat && tags.path !== '/containers/json') {
         done(new Error('mismatch'))
       } else {

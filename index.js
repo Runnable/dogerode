@@ -16,7 +16,7 @@ function shim (dockerode, opts) {
     modem._dial(options, done)
 
     function done (err, payload) {
-      reportTiming({
+      const tags = {
         path: filterPath(options.path),
         targetType: opts.targetType || 'unknown',
         method: options.method,
@@ -24,10 +24,12 @@ function shim (dockerode, opts) {
         dockerHost: modem.host,
         port: modem.post,
         dockerVersion: modem.version,
-        success: err == null,
+        success: err === null || err === undefined,
         statusCode: err && err.statusCode,
         errorCode: err && err.code
-      })
+      }
+      const allTags = Object.assign(opts.datadogTags || {}, tags)
+      reportTiming(allTags)
       callback(err, payload)
     }
   }
