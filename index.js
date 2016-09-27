@@ -64,6 +64,7 @@ const dockerNouns = [
   'stop',
   'tag',
   'top',
+  'update',
   'unpause',
   'version',
   'wait',
