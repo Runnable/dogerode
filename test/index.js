@@ -1,31 +1,34 @@
-var setCallback = require('dogstatsy/test/fixtures/DogStatsD');
-var Docker = require('dockerode');
-var docker = new Docker({
+'use strict'
+
+const setCallback = require('dogstatsy/test/fixtures/DogStatsD')
+const Docker = require('dockerode')
+let docker = new Docker({
   host: 'http://localhost',
   port: 4244
-});
-var dogerode = require('..');
+})
+const dogerode = require('..')
 
 docker = dogerode(docker, {
   service: 'dogerode_test',
   port: 8126
-});
+})
 
-var dockerMock = require('docker-mock');
-dockerMock.listen(4244);
+const dockerMock = require('docker-mock')
+dockerMock.listen(4244)
 
 describe('dogerode', function () {
-
   it('should histogram', function (done) {
-    var stat = 'node.dockerode.dial';
+    const stat = 'node.dockerode.dial'
     setCallback(stat, '|h', function (err, stat, val, tags) {
-      if (stat !== stat || tags.path !== '/containers/json') {
-        done(new Error('mismatch'));
-      } else {
-        done();
+      if (err) {
+        return done(err)
       }
-    });
-    docker.listContainers(function () {});
-  });
-
-});
+      if (stat && tags.path !== '/containers/json') {
+        done(new Error('mismatch'))
+      } else {
+        done()
+      }
+    })
+    docker.listContainers(function () {})
+  })
+})

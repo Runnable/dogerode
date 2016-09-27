@@ -4,7 +4,8 @@
   "description": "DogStatsD shim for dockerode",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=testing mocha -R spec"
+    "lint": "standard --verbose",
+    "test": "npm run lint && NODE_ENV=testing mocha -R spec"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,16 @@
     "Datadog",
     "DogStatsd"
   ],
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach"
+    ]
+  },
   "author": "Runnable",
   "license": "ISC",
   "bugs": {
@@ -26,7 +37,8 @@
   },
   "devDependencies": {
     "docker-mock": "0.0.4",
-    "dockerode": "^1.2.10",
-    "mocha": "^1.18.2"
+    "dockerode": "2.3.1",
+    "mocha": "^1.18.2",
+    "standard": "8.1.0"
   }
 }
